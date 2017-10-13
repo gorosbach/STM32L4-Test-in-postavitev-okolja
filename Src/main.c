@@ -38,9 +38,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32l4xx_hal.h"
+/* USER CODE BEGIN Includes */
 #include "stdio.h"
 #include "terminal.h"
-/* USER CODE BEGIN Includes */
+#include "LPS22HM.h"
+#include "HTS221.h"
+
+
 struct __FILE {
 	int dummy;
 };
@@ -53,12 +57,6 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-#define PRESSADRESS 0x5D
-#define LPS22HB_PRES_OUT_XL 0X28 //LSB
-#define LPS22HB_PRES_OUT_L 0X29
-#define LPS22HB_PRES_OUT_H 0X2A //MSB
-#define LPS22HB_TEMP_OUT_L 0X2B //LSB
-#define LPS22HB_TEMP_OUT_H 0X2C //MSB
 
 /* USER CODE END PV */
 
@@ -74,7 +72,51 @@ static void MX_I2C2_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+void Print_Out()
+{
+		float fTemp;
+		float fHum;
+		float fPress;
+		int who;
 
+		who = HTS221_Init();
+		printf("\x1b[%d;%dH",2,1);
+		printf(ATTINVERSE);
+		printf(FGGREEN);
+		printf("HTS221 - Humidity & Temperature sensor\r\n");
+		printf(ATTRESET);
+		printf(ATTINVERSE);
+		printf(FGYELLOW);
+		printf("Who am I = 0X%Xh\r\n",who);
+		printf(ATTRESET);
+
+		/* Poklici funkciji, ki prebereta temperaturo in vlago*/
+
+		fTemp = HTS221_Get_Temperature();
+		fHum = HTS221_Get_Humidity();
+
+		printf(FGWHITE);
+		printf("Rel. Humidity: %.1f%%\t Temperature: %.1fC\r\n", fHum/10.0 ,fTemp);
+		printf(ATTRESET);
+
+		who = LPS22HM_Init();
+		printf("\x1b[%d;%dH",7,1); //locate 1,1 (Y,X)
+		printf(ATTINVERSE);
+		printf(FGCYAN);
+		printf("LPS22HB - Pressure & Temperature sensor\r\n");
+		printf(ATTRESET);
+		printf(ATTINVERSE);
+		printf(FGYELLOW);
+		printf("Who am I = 0X%Xh\r\n",who);
+		printf(ATTRESET);
+
+		/* Poklici funkciji, ki prebereta temperaturo in tlak*/
+
+		fTemp = LPS22HM_Get_Temperature();
+		fPress = LPS22HM_Get_Pressure();
+
+		printf("Air Pressure: %.1f hPa @ %im ASL\t Temperature: %.1f\370C",fPress, ASL, fTemp);
+}
 /* USER CODE END 0 */
 
 int main(void)
@@ -106,55 +148,19 @@ int main(void)
   MX_I2C2_Init();
 
   /* USER CODE BEGIN 2 */
-  uint32_t rawPress;
-  char sprintbuff[80];
-  uint8_t buff[3];
-  uint8_t data[3];
-  uint32_t tmp=0;
-  uint8_t i;
-
+  HTS221_Init();
+  HAL_Delay(50);
+  HTS221_Get_Calibration();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  Print_Out();
+	  HAL_Delay(500);
+
   /* USER CODE END WHILE */
-	 data[0] = 0x11;
-	 data[1] = 0x01;
-	 HAL_I2C_Master_Transmit(&hi2c2, PRESSADRESS<<1, data, 2, 50);
-	 data[0] = 0x0f; //whoami request senzor vrne 0XB1h
-
-	 HAL_I2C_Master_Transmit(&hi2c2, PRESSADRESS<<1, data, 1, 50);
-	 data[0] = 0x00;
-	 HAL_I2C_Master_Receive(&hi2c2, PRESSADRESS<<1, data, 1, 50);
-
-	 printf(ATTINVERSE);
-	 printf(FGMAGENTA);
-	 printf("\x1b[%d;%dH",1,1);
-	 printf("THIS IS A SIMPLE TERMINAL TEST\r\n");
-	 printf(ATTRESET);
-
-
-	 printf("\x1b[%d;%dH",4,1); //locate 1,1 (Y,X) // locate 1,1
-	 printf(ATTUNDERLINE);
-	 printf("Who am I = 0X%Xh\r\n",data[0]);
-	 printf(ATTRESET);
-	 printf(FGYELLOW);
-
-	 float f = 3.14159265359;
-
-	 /* Project -> Properties -> Linker -> Miscelalneous -> Linker flags: dodaš -u _printf_float*/
-	 printf("Float PI = %.5f\r\n", f);
-
-	 printf(ATTRESET);
-
-
-
-	 HAL_Delay(500);
-	 HAL_GPIO_TogglePin(GPIOC, LEDB_Pin);
-
-	 /* DELUJE TUDI AUTOCOMPLETE KOMBINACIJA CTRL+SPACE */
 
   /* USER CODE BEGIN 3 */
 

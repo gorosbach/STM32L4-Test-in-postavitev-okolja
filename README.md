@@ -47,3 +47,8 @@ S tem deluje tudi izpis FP spremeljivk.
 S kombinacijo tipk **CTRL-SPACE** se pojavi seznam vseh funkcij.
 
 naprimer: HAL_ (CTRL-SPACE) pokaže vse funkcije, ki se začnejo s HAL_
+
+### 13.10.2017 ločena tlačni senzor in senzor rel. vlažnosti zraka, vsak 
+v svoji c/h parici - enostavno integriranje v main.
+
+

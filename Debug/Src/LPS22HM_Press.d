@@ -1,5 +1,4 @@
-Src/main.o: ../Src/main.c \
- /home/gorazd/Documents/CUBE_Projects/TEST_UART/Inc/main.h \
+Src/LPS22HM_Press.o: ../Src/LPS22HM_Press.c \
  /home/gorazd/Documents/CUBE_Projects/TEST_UART/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h \
  /home/gorazd/Documents/CUBE_Projects/TEST_UART/Inc/stm32l4xx_hal_conf.h \
  /home/gorazd/Documents/CUBE_Projects/TEST_UART/Inc/main.h \
@@ -30,9 +29,7 @@ Src/main.o: ../Src/main.c \
  /home/gorazd/Documents/CUBE_Projects/TEST_UART/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
  /home/gorazd/Documents/CUBE_Projects/TEST_UART/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h \
  /home/gorazd/Documents/CUBE_Projects/TEST_UART/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h \
- ../Src/terminal.h ../Src/LPS22HM.h ../Src/HTS221.h
-
-/home/gorazd/Documents/CUBE_Projects/TEST_UART/Inc/main.h:
+ ../Src/LPS22HM.h
 
 /home/gorazd/Documents/CUBE_Projects/TEST_UART/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:
 
@@ -94,8 +91,4 @@ Src/main.o: ../Src/main.c \
 
 /home/gorazd/Documents/CUBE_Projects/TEST_UART/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h:
 
-../Src/terminal.h:
-
 ../Src/LPS22HM.h:
-
-../Src/HTS221.h:

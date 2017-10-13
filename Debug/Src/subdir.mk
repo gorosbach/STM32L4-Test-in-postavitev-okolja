@@ -4,6 +4,8 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Src/HTS221_Hum.c \
+../Src/LPS22HM_Press.c \
 ../Src/main.c \
 ../Src/stm32l4xx_hal_msp.c \
 ../Src/stm32l4xx_it.c \
@@ -11,6 +13,8 @@ C_SRCS += \
 ../Src/system_stm32l4xx.c 
 
 OBJS += \
+./Src/HTS221_Hum.o \
+./Src/LPS22HM_Press.o \
 ./Src/main.o \
 ./Src/stm32l4xx_hal_msp.o \
 ./Src/stm32l4xx_it.o \
@@ -18,6 +22,8 @@ OBJS += \
 ./Src/system_stm32l4xx.o 
 
 C_DEPS += \
+./Src/HTS221_Hum.d \
+./Src/LPS22HM_Press.d \
 ./Src/main.d \
 ./Src/stm32l4xx_hal_msp.d \
 ./Src/stm32l4xx_it.d \
