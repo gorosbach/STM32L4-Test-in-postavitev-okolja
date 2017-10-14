@@ -44,7 +44,6 @@
 #include "LPS22HM.h"
 #include "HTS221.h"
 
-
 struct __FILE {
 	int dummy;
 };
@@ -78,9 +77,11 @@ void Print_Out()
 		float fHum;
 		float fPress;
 		int who;
-
+		printf("\x1b[%d;%dH",1,1);
+		printf(FGGREEN);
+		printf(greetings);
 		who = HTS221_Init();
-		printf("\x1b[%d;%dH",2,1);
+		printf("\x1b[%d;%dH",12,1);
 		printf(ATTINVERSE);
 		printf(FGGREEN);
 		printf("HTS221 - Humidity & Temperature sensor\r\n");
@@ -96,11 +97,11 @@ void Print_Out()
 		fHum = HTS221_Get_Humidity();
 
 		printf(FGWHITE);
-		printf("Rel. Humidity: %.1f%%\t Temperature: %.1fC\r\n", fHum/10.0 ,fTemp);
+		printf("Rel. Humidity: %.1f%%\t Temperature: %.1f%s \r\n", fHum/10.0 ,fTemp, DEG_SYM);
 		printf(ATTRESET);
 
 		who = LPS22HM_Init();
-		printf("\x1b[%d;%dH",7,1); //locate 1,1 (Y,X)
+		printf("\x1b[%d;%dH",17,1); //locate 1,1 (Y,X)
 		printf(ATTINVERSE);
 		printf(FGCYAN);
 		printf("LPS22HB - Pressure & Temperature sensor\r\n");
@@ -115,7 +116,7 @@ void Print_Out()
 		fTemp = LPS22HM_Get_Temperature();
 		fPress = LPS22HM_Get_Pressure();
 
-		printf("Air Pressure: %.1f hPa @ %im ASL\t Temperature: %.1f\370C",fPress, ASL, fTemp);
+		printf("Air Pressure: %.1f hPa @ %im ASL\t Temperature: %.1f%s ",fPress, ASL, fTemp, DEG_SYM);
 }
 /* USER CODE END 0 */
 
@@ -158,6 +159,7 @@ int main(void)
   while (1)
   {
 	  Print_Out();
+
 	  HAL_Delay(500);
 
   /* USER CODE END WHILE */

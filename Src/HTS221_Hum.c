@@ -69,11 +69,11 @@ float HTS221_Get_Temperature()
 		data[0] = 0x21;
 		data[1] = 0x01;		//one shot
 		HAL_I2C_Master_Transmit(&hi2c2, HUMADRESS<<1, data, 2, 50);
-	
+
 		data[0] = 0x20;
 		data[1] = 0x80;		//enable
 		HAL_I2C_Master_Transmit(&hi2c2, HUMADRESS<<1, data, 2, 50);
-	
+
 		for(int x= 0; x<4; x++)
 		{
 			switch(x)

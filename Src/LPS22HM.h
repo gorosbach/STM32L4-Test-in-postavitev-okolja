@@ -15,6 +15,6 @@ float LPS22HM_Get_Temperature(void);
 #define LPS22HB_TEMP_OUT_H	0X2C //MSB
 
 
-#define ASL 300 //nadmorska visina
+#define ASL 289 //nadmorska visina
 
 #endif
