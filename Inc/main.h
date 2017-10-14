@@ -41,7 +41,7 @@
   /* Includes ------------------------------------------------------------------*/
 
 /* USER CODE BEGIN Includes */
-
+#define LINUX
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
@@ -49,8 +49,23 @@
 #define LEDB_Pin GPIO_PIN_9
 #define LEDB_GPIO_Port GPIOC
 
+#ifdef LINUX
+#define DEG_SYM "\u2103"
+#elif WIN32
+#define DEG_SYM "\370"
+#endif
 /* USER CODE BEGIN Private defines */
-
+static const char greetings[] = {
+		"********************************************************************************\r\n"
+		"*    Simple demonstration of sensors on IOT board featuring STM32L4 micro.     *\r\n"
+		"********************************************************************************\r\n"
+		"*                                                                              *\r\n"
+		"*    Author: Gorazd Rosbach                                                    *\r\n"
+		"*                                                                              *\r\n"
+		"*    Adjust ASL to match the correct above sea level in LPS22HM.h              *\r\n"
+		"*                                                                              *\r\n"
+		"********************************************************************************\r\n"
+};
 /* USER CODE END Private defines */
 
 void _Error_Handler(char *, int);
